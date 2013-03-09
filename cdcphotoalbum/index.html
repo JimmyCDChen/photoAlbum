@@ -1,20 +1,55 @@
 <html>
+  <head>
+    <title> Open Source Tool Final Project </title>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+  </head>
   <body>
-    {% for greeting in greetings %}
-      {% if greeting.author %}
-        <b>{{ greeting.author }}</b> wrote:
-      {% else %}
-        An anonymous person wrote:
-      {% endif %}
-      <blockquote>{{ greeting.content|escape }}</blockquote>
-    {% endfor %}
 
-    <form action="/sign" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
-    </form>
+    <h4> Hello, {{greeting}}  </h4>
 
-    <a href="{{ url }}">{{ url_linktext }}</a>
+      <FONT style="BACKGROUND-COLOR: yellow"><b> {{ response }} </b> </FONT>  
+        <HR/>
+        
+        <form action="/item" method="get">  
+          <b>{{ greeting }} </b><br><br>
+          <div>Category List: <br>
+            {% for category in categories %}
+                {% if category %}
+                    <input type="radio" name="category" value="{{ category.category }}">{{ category.category }}<br>
+                {% endif %}
+            {% endfor %}
+          </div>
+          <input type="submit" name="submit" value="Submit"> 
+        </form>
+        
+        <br>
+        <form action="/category" method="post"> 
+          To add a new item, please select or add a category first.<br><br>
+          <div>Add Category: 
+            <input type="text" name="content">
+            <input type="hidden" name="user" value="{{ user }}">
+            <input type="submit" name="submit" value="Add"> 
+          </div>
+          <div> Delete Category:
+              <input type="text" name="deletename">
+              <input type="submit" name="submit" value="Delete">
+          </div>        
+        </form>
+        <HR/>
+
+        <h3>Running results of category: </h3>
+        <table border="1">
+          <td> Owner </td>
+          <td> Category </td>
+
+          {% for category in categories %}
+          <tr>
+            <td> {{ category.author }} </td>
+            <td> {{ category.category }} </td>
+          </tr>
+          {% endfor %}
+        </table>
+    
 
   </body>
 </html>
