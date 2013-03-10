@@ -1,55 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
 <html>
   <head>
-    <title> Open Source Tool Final Project </title>
+    <title> Picasa photo loading project </title>
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   </head>
+
   <body>
 
-    <h4> Hello, {{greeting}}  </h4>
+    <h4> Hello! This is a photo retrive system from Picasa Public album.</h4>
 
-      <FONT style="BACKGROUND-COLOR: yellow"><b> {{ response }} </b> </FONT>  
-        <HR/>
-        
-        <form action="/item" method="get">  
-          <b>{{ greeting }} </b><br><br>
-          <div>Category List: <br>
-            {% for category in categories %}
-                {% if category %}
-                    <input type="radio" name="category" value="{{ category.category }}">{{ category.category }}<br>
-                {% endif %}
-            {% endfor %}
-          </div>
-          <input type="submit" name="submit" value="Submit"> 
-        </form>
-        
-        <br>
-        <form action="/category" method="post"> 
-          To add a new item, please select or add a category first.<br><br>
-          <div>Add Category: 
-            <input type="text" name="content">
-            <input type="hidden" name="user" value="{{ user }}">
-            <input type="submit" name="submit" value="Add"> 
-          </div>
-          <div> Delete Category:
-              <input type="text" name="deletename">
-              <input type="submit" name="submit" value="Delete">
-          </div>        
-        </form>
-        <HR/>
+    {% if user %}
+        <a href="{{ logInOut }}">Log Out</a><br>
 
-        <h3>Running results of category: </h3>
-        <table border="1">
-          <td> Owner </td>
-          <td> Category </td>
+        <h4> Hello, {{ user }} </h4> 
+          <HR>
+            <h4> {{ greeting }} </h4>
+            <div>
+              <form id="albumInput" method="GET" action="/Retrive">
+                Please enter which album you want to display:<input style="margin-left:20px;" name="albumName" placeholder="Album Name">
+                <input type="submit" value="Submit">
+              </form>
+            </div>
+            <HR>
+              {% if albumsInfo %}
+                {% for info in albums %}
+                    <p>title: {{info}}<br>, number of photos: {{info}}<br>id: {{info}}</p>
+                {% endfor %}
+              {% endif %}
+            
+            {% if albumFound %}
 
-          {% for category in categories %}
-          <tr>
-            <td> {{ category.author }} </td>
-            <td> {{ category.category }} </td>
-          </tr>
-          {% endfor %}
-        </table>
-    
+            {% endif %}
+
+    {% else %}
+        <h4> {{ greeting }} </h4>
+        <a href="{{ logInOut }}">Log In</a><br><br>
+
+    {% endif %}
+            <p class="ending" style="text-align: center;text-decoration: underline;"> Jimmy C. Chen </p>
+
+  {% block javascript %}
+
+  {% endblock %}
 
   </body>
 </html>

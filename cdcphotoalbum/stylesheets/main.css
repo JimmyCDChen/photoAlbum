@@ -1,4 +1,26 @@
 body {
   font-family: Verdana, Helvetica, sans-serif;
-  background-color: #DDDDDD;
+  background-color:#d0e4fe;
+}
+p
+{
+	font-size:20px;
+}
+form
+{
+	margin: 10px
+}
+.thumbnail 
+{
+	float:left;
+	width:110px;
+	height:90px;
+	margin:10px;
+}
+.ending
+{
+	text-align: center;
+	position:fixed;
+	top:30px;
+	right:50px;
 }
