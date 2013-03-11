@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+  </head>
+  <body>
+    <form action="/" method="get">
+        <div><input type="submit" name="submit" value="MainPage"></div>        
+    </form>
+    <br>
+    <HR/>
+    <h3>Photos from your album: {{albumName}}</h3>
+    <table border="1">
+      <tr>
+        <td> Photo ID </td>
+        <td> Thumbnail </td>
+        <td> Author </td>
+        <td> Title </td>
+        <td> Time </td>
+        <td> Make </td>
+        <td> Model </td>
+        <td> Exposure </td>
+        <td> Focallength </td>
+        <td> Fstop </td>
+        <td> Iso </td>
+        <td> Flash </td>
+      </tr>
+      
+        {% for photo in allPhoto %}
+        <tr>
+            <td> {{ photo.photoid }} </td>
+            <td> <img src="{{ photo.thumbnail }}"> </td>
+            <td> {{ photo.author }} </td>
+            <td> {{ photo.title }} </td>
+            <td> {{ photo.time }} </td>
+            <td> {{ photo.make }} </td>
+            <td> {{ photo.model }} </td>
+            <td> {{ photo.exposure }} </td>
+            <td> {{ photo.focallength }} </td>
+            <td> {{ photo.fstop }} </td>
+            <td> {{ photo.iso }} </td>
+            <td> {{ photo.flash }} </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    
+    
+  </body>
+</html>

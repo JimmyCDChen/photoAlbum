@@ -4,12 +4,17 @@ body {
 }
 p
 {
-	font-size:20px;
+	font-size:16px;
 }
 form
 {
 	margin: 10px
 }
+table
+{
+	text-align: center;
+}
+
 .thumbnail 
 {
 	float:left;

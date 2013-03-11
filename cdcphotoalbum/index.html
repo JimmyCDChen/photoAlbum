@@ -20,19 +20,21 @@
           <HR>
             <h4> {{ greeting }} </h4>
             <div>
-              <form id="albumInput" method="GET" action="/Retrive">
+              <form id="albumInput" method="GET" action="/Retrieve">
                 Please enter which album you want to display:<input style="margin-left:20px;" name="albumName" placeholder="Album Name">
                 <input type="submit" value="Submit">
               </form>
             </div>
             <HR>
-              {% if albumsInfo %}
-                {% for info in albums %}
-                    <p>title: {{info}}<br>, number of photos: {{info}}<br>id: {{info}}</p>
+
+              <p style=""> Your public albums are listed below: </p> 
+              {% if albumInfo %}
+                {% for Title, ID, numPhoto in albumInfo %}
+                    <p>Title: {{Title}}<br>AlbumID: {{ID}}<br>Number of Photos Contains: {{numPhoto}}</p>
                 {% endfor %}
               {% endif %}
             
-            {% if albumFound %}
+            {% if allPhoto %}
 
             {% endif %}
 
