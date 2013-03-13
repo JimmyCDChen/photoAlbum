@@ -3,7 +3,9 @@ import urllib
 import webapp2
 import jinja2
 import os
-import thread
+import time
+import threading
+import Queue
 import datetime
 from google.appengine.ext import db
 from google.appengine.api import users
@@ -12,6 +14,8 @@ import gdata.media
 import gdata.geo
 
 albumRef = {}
+numProducer = 1
+numConsumer = 1
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -31,63 +35,103 @@ class Photo(db.Model):
     thumbnail = db.StringProperty()
 
 
+# this is executed in one threading.Thread object
+def producer(threadID, albumID):
+    global photoQueue
+    user = users.get_current_user()
+    gd_client = gdata.photos.service.PhotosService()
+    photoList = gd_client.GetFeed('/data/feed/api/user/%s/albumid/%s?kind=photo' % (user, albumID))
+
+    for photo in photoList.entry:
+        with stdout_mutex:
+            photoQueue.put(photo)
+            time.sleep(0.1)
+            print photoQueue
+            
+# this is executed in another threading.Thread object
+def consumer():
+    global photoQueue
+    while True:
+        try:
+            photo = photoQueue.get(block=false)
+        except Queue.Empty:
+            # queue is empty
+            pass
+        else:
+            with stdout_mutex:
+                print photo.gphoto_id.text
+                newPhoto = Photo()
+                newPhoto.photoid = photo.gphoto_id.text
+                newPhoto.thumbnail = photo.media.thumbnail[2].url
+                newPhoto.author = photo.media.credit.text
+                newPhoto.title = photo.title.text
+                try:
+                    newPhoto.time = datetime.datetime.fromtimestamp(float(photo.exif.time.text) / 1e3)
+                except:
+                    pass
+                try:
+                    newPhoto.exposure = photo.exif.exposure.text
+                except:
+                    pass
+                try:
+                    newPhoto.focallength = photo.exif.focallength.text
+                except:
+                    pass
+                try:
+                    newPhoto.make = photo.exif.make.text
+                except:
+                    pass
+                try:
+                    newPhoto.fstop = photo.exif.fstop.text
+                except:
+                    pass
+                try:
+                    newPhoto.model = photo.exif.model.text
+                except:
+                    pass
+                try:
+                    newPhoto.flash = photo.exif.flash.text
+                except:
+                    pass
+                try:
+                    newPhoto.iso = photo.exif.iso.text
+                except:
+                    pass
+
+            # Add to db after retrieved
+            newPhoto.put()
+            time.sleep(0.1)
+
+
+photoQueue = Queue.Queue()
+stdout_mutex = threading.Lock()
 class Retrieve(webapp2.RequestHandler):
-    QUEUE = []
     def get(self):
         user = users.get_current_user()
-        print albumRef
         albumName = self.request.get('albumName')
         photoAlbumID = albumRef[albumName]
-        gd_client = gdata.photos.service.PhotosService()
-        photoList = gd_client.GetFeed('/data/feed/api/user/%s/albumid/%s?kind=photo' % (user, photoAlbumID))
 
-        # Clear all temporary photo data stored in the db
-        photoAll = Photo.all()
-        db.delete(photoAll)
+        # Clear all photo data stored in the db
+        #photoAll = Photo.all()
+        #db.delete(photoAll)
 
-        for photo in photoList.entry:
-            newPhoto = Photo()
-            newPhoto.photoid = photo.gphoto_id.text
-            newPhoto.thumbnail = photo.media.thumbnail[2].url
-            newPhoto.author = photo.media.credit.text
-            newPhoto.title = photo.title.text
-            try:
-                newPhoto.time = datetime.datetime.fromtimestamp(float(photo.exif.time.text) / 1e3)
-            except:
-                pass
-            try:
-                newPhoto.exposure = photo.exif.exposure.text
-            except:
-                pass
-            try:
-                newPhoto.focallength = photo.exif.focallength.text
-            except:
-                pass
-            try:
-                newPhoto.make = photo.exif.make.text
-            except:
-                pass
-            try:
-                newPhoto.fstop = photo.exif.fstop.text
-            except:
-                pass
-            try:
-                newPhoto.model = photo.exif.model.text
-            except:
-                pass
-            try:
-                newPhoto.flash = photo.exif.flash.text
-            except:
-                pass
-            try:
-                newPhoto.iso = photo.exif.iso.text
-            except:
-                pass
+        joinable = []
+        # start consumer
+        for i in range(numConsumer):
+            t = threading.Thread(target=consumer)
+            t.daemon = True
+            t.start()
 
-            newPhoto.put()
-        
+        # Call producer to retrieve photos
+        for i in range(numProducer):
+            t = threading.Thread(target=producer, args=(i, photoAlbumID))
+            joinable.append(t)
+            t.start()
+
+        for thread in joinable:
+            thread.join()
+
         allPhoto = Photo.all()
-
         template_values = {
                 'user': user,
                 'allPhoto': allPhoto,
@@ -96,27 +140,6 @@ class Retrieve(webapp2.RequestHandler):
         
         template = jinja_environment.get_template('photo.html')
         self.response.out.write(template.render(template_values))
-
-	# this is executed in one threading.Thread object
-    def producer():
-        global QUEUE
-        while True:
-            i = produce_item()
-            QUEUE.append(i)
-
-        gd_client = gdata.photos.service.PhotosService()
-
-	# this is executed in another threading.Thread object
-    def consumer():
-        global QUEUE
-        while True:
-            try:
-                i = QUEUE.pop(0)
-            except IndexError:
-                # queue is empty
-                continue
-
-            consume_item(i)
 
 
 class MainPage(webapp2.RequestHandler):
@@ -130,14 +153,17 @@ class MainPage(webapp2.RequestHandler):
             logInOut = users.create_logout_url(self.request.uri)
             greeting = "Please Enter Your Picasa Album Address:"
             gd_client = gdata.photos.service.PhotosService()
-            albumList = gd_client.GetUserFeed(user=user)
 
-            for album in albumList.entry:
-                albumID.append(album.gphoto_id.text)
-                albumRef[album.title.text] = album.gphoto_id.text
-                albumTitle.append(album.title.text)
-                albumPhotoNum.append(album.numphotos.text)
+            try:
+                albumList = gd_client.GetUserFeed(user=user)
 
+                for album in albumList.entry:
+                    albumID.append(album.gphoto_id.text)
+                    albumRef[album.title.text] = album.gphoto_id.text
+                    albumTitle.append(album.title.text)
+                    albumPhotoNum.append(album.numphotos.text)
+            except:
+                pass
         else:
     
             logInOut = users.create_login_url(self.request.uri)
