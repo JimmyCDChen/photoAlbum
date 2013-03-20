@@ -192,7 +192,7 @@ class MainPage(webapp2.RequestHandler):
                 'albumInfo': zip(*(albumTitle, albumID, albumPhotoNum)),
         }
         
-        template = jinja_environment.get_template('Index.html')
+        template = jinja_environment.get_template('index.html')
         self.response.out.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([('/', MainPage),

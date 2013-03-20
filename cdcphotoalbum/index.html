@@ -10,69 +10,69 @@
 
 <div id="wrapper">
 
-<div id="header">
-     <ul>
-       <li> <a href="{{ logInOut }}">Log Out</a></li>
-    </ul> 
-</div>
+  {% if not user %}
+    {{ greeting }} 
+  <div id="header">
+       <ul>
+         <li> <a href="{{ logInOut }}">Log In</a></li>
+      </ul> 
+  </div>
 
-<div id="philosopy">Bonjour Picasa!</div>
+  {% else %}
+  <div id="header">
+       <ul>
+         <li> <a href="{{ logInOut }}">Log Out</a></li>
+      </ul> 
+  </div>
 
-<div id="nav">
-    <ul>
-        <li><a><a href="mailto:chundachen1230@gmail.com">Contact Us</a></li>
-        <li><a href="#">News</a></li>
-        <li><a href="#">Projects</a></li>
-      
-        <li><a href="#">People</a></li>
-        <li><a href="/">Home</a></li>
-    </ul>
-</div>
+  <div id="title">Picasa Photo Retriever</div>
+  <div id="nav">
+      <ul>
+          <li><a><a href="mailto:chundachen1230@gmail.com">Contact Us</a></li>
+          <li><a href="/">Home</a></li>
+      </ul>
+  </div>
 
-<div id="subwrapper">
-  <div id="contentleft">
- <br /><br /><Br /><br /><br />
-  <a> LinkCasa is a photo retrive system that allow you to get photos from Picasa Public album while log in to LinkedIn. Have fun!</a>
+  <div id="subwrapper">
+    <div id="contentleft">
+   <br /><br /><Br /><br /><br />
+    <a> Picasa Photo Retriever is a photo retrive system that allow you to get photos from Picasa Public album while log in to Google. Have fun!</a>
 
-    {% if user %}
-       <br><br />
+         <br><br/>
 
-        <h2> Hello, {{ user }} </h2> 
-        <form id="albumInput" method="GET" action="/Retrieve">
-          Select an album:
-          <input style="margin-left:20px;" name="albumName" placeholder="Album Name">
-          <input type="submit" value="Submit">
-        </form> 
-        </div>
-        <div id="contentright">
-          <div id="welcome">
-            <p class="intro">
-            <h4>Your public albums are listed below: </h4>
+          <h2> Hello, {{ user }} </h2> 
+          <form id="albumInput" method="GET" action="/Retrieve">
+            Select an album:
+            <input style="margin-left:20px;" name="albumName" placeholder="Album Name">
+            <input type="submit" value="Submit">
+          </form> 
+          </div>
+          <div id="contentright">
+            <div id="welcome">
+              <p class="intro">
+              <h4>Your public albums are listed below: </h4>
 
-              {% if albumInfo %} 
-                {% for Title, ID, numPhoto in albumInfo %} 
-                Title: {{Title}}
-                AlbumID: {{ID}}
-                Number of Photos Contains: {{numPhoto}}
-                <br>
-                {% endfor %} 
-              {% endif %} 
-            
-            </p>
-          </div></div>
-          <div id="clear"></div>
-        </div>
+                {% if albumInfo %} 
+                  {% for Title, ID, numPhoto in albumInfo %} 
+                  Title: {{Title}}
+                  AlbumID: {{ID}}
+                  Photos #: {{numPhoto}}
+                  <br>
+                  {% endfor %} 
+                {% endif %} 
+              
+              </p>
+            </div></div>
+            <div id="clear"></div>
+          </div>
 
-    {% else %} 
-      {{ greeting }} 
-        Log In
 
-    {% endif %}
-
-<div id="footer">
-<p>Chun-Da Jimmy Chen&bull; Phone:(718)612-5226 &bull;Chundachen1230@gmail.com<br />
-© 2013 New York University. All Rights Reserved. <a href="http://www4.lehigh.edu/about/copyright.aspx?footer" target="_blank">Copyright</a> | <a href="http://www4.lehigh.edu/about/serviceagreement.aspx?footer" target="_blank">Terms of Use</a> | <a href="http://www4.lehigh.edu/about/privacy.aspx?footer" target="_blank">Privacy Policy</a>. </p>
-</div>
+    <div id="footer">
+      <p>Chun-Da Jimmy Chen&bull; Phone:(718)612-5226 &bull;chundachen1230@gmail.com<br />
+      © 2013 New York University. All Rights Reserved.
+      </p>
+    </div>
+  {% endif %}
 </div>
 
 </body>
