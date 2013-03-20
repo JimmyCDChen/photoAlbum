@@ -1,53 +1,79 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Photo Retrive Project</title>
+<link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
+</head>
 
-<html lang="en">
-<html>
-  <head>
-    <title> Picasa photo loading project </title>
-    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  </head>
+<body>
 
-  <body>
+<div id="wrapper">
 
-    <h4> Hello! This is a photo retrive system from Picasa Public album.</h4>
+<div id="header">
+     <ul>
+       <li> <a href="{{ logInOut }}">Log Out</a></li>
+    </ul> 
+</div>
+
+<div id="philosopy">Bonjour Picasa!</div>
+
+<div id="nav">
+    <ul>
+        <li><a><a href="mailto:chundachen1230@gmail.com">Contact Us</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Projects</a></li>
+      
+        <li><a href="#">People</a></li>
+        <li><a href="/">Home</a></li>
+    </ul>
+</div>
+
+<div id="subwrapper">
+  <div id="contentleft">
+ <br /><br /><Br /><br /><br />
+  <a> LinkCasa is a photo retrive system that allow you to get photos from Picasa Public album while log in to LinkedIn. Have fun!</a>
 
     {% if user %}
-        <a href="{{ logInOut }}">Log Out</a><br>
+       <br><br />
 
-        <h4> Hello, {{ user }} </h4> 
-          <HR>
-            <h4> {{ greeting }} </h4>
-            <div>
-              <form id="albumInput" method="GET" action="/Retrieve">
-                Please enter which album you want to display:<input style="margin-left:20px;" name="albumName" placeholder="Album Name">
-                <input type="submit" value="Submit">
-              </form>
-            </div>
-            <HR>
+        <h2> Hello, {{ user }} </h2> 
+        <form id="albumInput" method="GET" action="/Retrieve">
+          Select an album:
+          <input style="margin-left:20px;" name="albumName" placeholder="Album Name">
+          <input type="submit" value="Submit">
+        </form> 
+        </div>
+        <div id="contentright">
+          <div id="welcome">
+            <p class="intro">
+            <h4>Your public albums are listed below: </h4>
 
-              <p><b> Your public albums are listed below: </b></p> 
-              {% if albumInfo %}
-                {% for Title, ID, numPhoto in albumInfo %}
-                    <p>Title: {{Title}}<br>AlbumID: {{ID}}<br>Number of Photos Contains: {{numPhoto}}</p>
-                {% endfor %}
-              {% endif %}
+              {% if albumInfo %} 
+                {% for Title, ID, numPhoto in albumInfo %} 
+                Title: {{Title}}
+                AlbumID: {{ID}}
+                Number of Photos Contains: {{numPhoto}}
+                <br>
+                {% endfor %} 
+              {% endif %} 
             
-            {% if allPhoto %}
+            </p>
+          </div></div>
+          <div id="clear"></div>
+        </div>
 
-            {% endif %}
-
-    {% else %}
-        <h4> {{ greeting }} </h4>
-        <a href="{{ logInOut }}">Log In</a><br><br>
+    {% else %} 
+      {{ greeting }} 
+        Log In
 
     {% endif %}
-            <p class="ending" style="text-align: center;text-decoration: underline;"> Jimmy C. Chen </p>
 
-  {% block javascript %}
+<div id="footer">
+<p>Chun-Da Jimmy Chen&bull; Phone:(718)612-5226 &bull;Chundachen1230@gmail.com<br />
+© 2013 New York University. All Rights Reserved. <a href="http://www4.lehigh.edu/about/copyright.aspx?footer" target="_blank">Copyright</a> | <a href="http://www4.lehigh.edu/about/serviceagreement.aspx?footer" target="_blank">Terms of Use</a> | <a href="http://www4.lehigh.edu/about/privacy.aspx?footer" target="_blank">Privacy Policy</a>. </p>
+</div>
+</div>
 
-  {% endblock %}
-
-  </body>
+</body>
 </html>

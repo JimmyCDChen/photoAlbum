@@ -1,19 +1,43 @@
-<html>
-  <head>
-    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
-  </head>
-  <body>
-    <form action="/" method="get">
-        <div>
-            Click here to go back to Main Page
-            <br>
-            <input type="submit" name="submit" value="MainPage">
-        </div>        
-    </form>
-    <br>
-    <HR/>
-    <h3>Photos from your album: {{albumName}}</h3>
-    <table border="1" style="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Photo Retrive Project</title>
+
+<link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/pagestyle.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div id="wrapper">
+
+<div id="header">
+     <ul>
+       <li> <a href="{{ logInOut }}">Log Out</a></li>
+    </ul> 
+</div>
+
+<div id="philosopy">Bonjour LinkCasa!</div>
+
+<div id="nav">
+    <ul>
+        <li><a><a href="mailto:Chundachen1230@gmail.com">Contact Us</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Projects</a></li>
+      
+        <li><a href="#">People</a></li>
+        <li><a href="/">Home</a></li>
+    </ul>
+</div>
+<div id="topbar"></div>
+<div id="submenu">
+ 
+    <div id="content">
+        <p class="subtitle"> PHOTOS in {{albumName}}</p>
+        
+        <p class="subtitle"></p>
+       <table border="1" style="">
       <tr>
         <td> Photo ID </td>
         <td> Thumbnail </td>
@@ -46,8 +70,17 @@
         </tr>
         {% endfor %}
     </table>
+        </div>
+    <div id="clear"></div>
+    <div id="bottom"></div>
+</div>
 
-    
-    
-  </body>
+<div id="footer">
+<p>
+Chun-Da Jimmy Chen&bull; Phone:(718)612-5226 &bull;Chundachen1230@gmail.com<br />
+© 2012 New York University. All Rights Reserved. <a href="http://www4.lehigh.edu/about/copyright.aspx?footer" target="_blank">Copyright</a> | <a href="http://www4.lehigh.edu/about/serviceagreement.aspx?footer" target="_blank">Terms of Use</a> | <a href="http://www4.lehigh.edu/about/privacy.aspx?footer" target="_blank">Privacy Policy</a>. </p></div>
+</div>
+</div>
+
+</body>
 </html>
