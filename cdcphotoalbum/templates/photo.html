@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Photo Retrive Project</title>
+
+<link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/pagestyle.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <div id="header">
+        <ul>
+           <li> <a href="{{ logInOut }}">Log Out</a></li>
+        </ul> 
+    </div>
+
+    <div id="title">Picasa Photo Retriever</div>
+    <div id="nav">
+        <ul>
+            <li><a><a href="mailto:chundachen1230@gmail.com">Contact Us</a></li>
+            <li><a href="/">Home</a></li>
+        </ul>
+    </div>
+
+    <div id="topbar"></div>
+    <div id="submenu">
+     
+        <div id="content">
+            <p class="subtitle"> PHOTOS in {{albumName}}</p>
+            {% if allPhoto %}
+                <p class="subtitle"></p>
+               <table border="1" style="">
+                  <tr>
+                    <td> Photo ID </td>
+                    <td> Thumbnail </td>
+                    <td> Title </td>
+                    <td> Time </td>
+                    <td> Make </td>
+                    <td> Model </td>
+                    <td> Exposure </td>
+                    <td> Focallength </td>
+                    <td> Fstop </td>
+                    <td> Iso </td>
+                    <td> Flash </td>
+                  </tr>
+              
+                    {% for photo in allPhoto %}
+                    <tr>
+                        <td> {{ photo.photoid }} </td>
+                        <td> <img src="{{ photo.thumbnail }}"> </td>
+                        <td> {{ photo.title }} </td>
+                        <td> {{ photo.time }} </td>
+                        <td> {{ photo.make }} </td>
+                        <td> {{ photo.model }} </td>
+                        <td> {{ photo.exposure }} </td>
+                        <td> {{ photo.focallength }} </td>
+                        <td> {{ photo.fstop }} </td>
+                        <td> {{ photo.iso }} </td>
+                        <td> {{ photo.flash }} </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>Sorry... You have no photo in this album. :(</p>
+            {% endif %}
+        </div>
+        <div id="clear"></div>
+        <div id="bottom"></div>
+    </div>
+
+    <div id="footer">
+        <p>
+        Chun-Da Jimmy Chen&bull; Phone:(718)612-5226 &bull;Chundachen1230@gmail.com<br />
+        © 2012 New York University. All Rights Reserved.  
+        </p>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

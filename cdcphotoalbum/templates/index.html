@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Photo Retrive Project</title>
+<link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div id="wrapper">
+
+  {% if not user %}
+    {{ greeting }} 
+  <div id="header">
+       <ul>
+         <li> <a href="{{ logInOut }}">Log In</a></li>
+      </ul> 
+  </div>
+
+  {% else %}
+  <div id="header">
+       <ul>
+         <li> <a href="{{ logInOut }}">Log Out</a></li>
+      </ul> 
+  </div>
+
+  <div id="title">Picasa Photo Retriever</div>
+  <div id="nav">
+      <ul>
+          <li><a><a href="mailto:chundachen1230@gmail.com">Contact Us</a></li>
+          <li><a href="/">Home</a></li>
+      </ul>
+  </div>
+
+  <div id="subwrapper">
+    <div id="contentleft">
+   <br /><br /><Br /><br /><br />
+    <a> Picasa Photo Retriever is a photo retrive system that allow you to get photos from Picasa Public album while log in to Google. Have fun!</a>
+
+         <br><br/>
+
+          <h2> Hello, {{ user }} </h2> 
+          </div>
+          <div id="contentright">
+            <div id="welcome">
+              <p class="intro">
+              <h4>Your public albums are listed below: </h4>
+                {% if albumInfo %} 
+                  {% for album in albumInfo %} 
+
+                  Title: <a href="/Retrieve/?name={{album.albumName}}">{{album.albumName}}</a>
+                  Photos #: {{album.albumPhoto}}
+                  <br>
+                  {% endfor %} 
+                {% endif %} 
+              
+              </p>
+            </div></div>
+            <div id="clear"></div>
+          </div>
+
+
+    <div id="footer">
+      <p>Chun-Da Jimmy Chen&bull; Phone:(718)612-5226 &bull;chundachen1230@gmail.com<br />
+      © 2013 New York University. All Rights Reserved.
+      </p>
+    </div>
+  {% endif %}
+</div>
+
+</body>
+</html>

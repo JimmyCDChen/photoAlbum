@@ -1,0 +1,189 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*layout*/
+#topbar{
+	background: url(/stylesheets/images/topbar.jpg) no-repeat bottom;
+	height:20px;
+	margin-left:auto;
+	margin-right:auto;
+	padding-top:20px;
+	
+	}
+	
+#submenu {
+	background: #ffcc00;
+	width:1000px;
+	margin-right:auto;
+	margin-left:auto;
+	}
+	
+#content {
+	background:#FFF;
+	width:1000px;
+	margin: 0px;
+	padding: 0px;
+	float: center;
+	
+	}
+		
+#bottom{
+	width:1000px;
+	height:5px;
+	background:#993331;
+}
+
+/* Left content*/	
+#leftmenu{
+	width:230px;
+	padding-left:20px;
+	padding-top:90px;
+	background-color:transparent;
+	height:auto;
+	float:left;
+}
+
+#leftmenu ul li{
+	color:#FFF;
+}
+
+#leftmenu ul li a {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	line-height: 2.5em;
+	}
+
+#leftmenu ul li a:link, #leftmenu ul li a:visited{
+	color: #333;
+	text-decoration: none;
+}
+
+#leftmenu ul li a:hover, #leftmenu ul li a:active{
+	color: #FFF;
+	text-decoration: underline;
+	list-style:circle;
+}
+
+/* Right content*/
+.subtitle{
+	padding-top:5px;
+	padding-left:30px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:1.7em;
+	text-align:left;
+	color:#999;
+}
+
+#subcontent{
+	width:550px;
+	margin-left:100px;
+}
+
+#subcontent .subtitle2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.2em;
+	line-height: 1.2em;
+	font-weight: bold;
+	color: #9E9E9E;
+}
+
+
+#subcontent p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	line-height: 1.5em;
+	color: #333;
+	text-align:justify;
+	margin: 0;
+	}
+
+#subcontent ul li {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	line-height: 1.5em;
+	color:#333;
+	text-align:justify;
+}
+
+#subcontent ul li ul li {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.0em;
+	line-height: 1.5em;
+	text-decoration: none;
+}
+
+#subcontent ul li a {
+	color: #333;
+}
+
+#subcontent ul li a:hover {
+	color: #C99;
+}
+
+#subcontent  a {
+	color: #333;
+	text-decoration: underline;
+	}
+
+#subcontent a:hover {
+	color: #C99;
+}
+
+#subcontent h3 {
+	color: #C66;
+}
+
+#subcontent .level a {
+	color: #C66;
+}
+
+#subcontent .top a {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 1.5em;
+	color: #C66;
+	text-decoration: underline;
+	float: right;
+	padding-right: 20px;
+}
+
+/*Table format (for people.html)*/
+#wrapper #content table {
+	padding-left: 30px;
+	text-align: justify;
+
+}
+#wrapper #submenu #content table tbody tr td p {
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1.5em;
+	color: #181818;
+	text-align: justify;
+	font-size: 0.8em;
+}
+#wrapper #submenu #content table tbody tr td a {
+	font-weight: bold;
+	color: #181818;
+	text-decoration: underline;
+}
+
+#subcontent .coursetitle {
+	font-weight: bold;
+}
+
+#content table {
+	width:87%;
+	border:0px;
+	align:center;
+	margin-left:auto;
+	margin-right:auto;
+	vertical-align: top;
+	}
+
+#content table tbody tr td {
+	vertical-align: top;
+	}
+
+#content table .tableimg {
+	padding:2px;
+    border:1px solid #000;
+}
